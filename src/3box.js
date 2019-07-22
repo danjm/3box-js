@@ -98,7 +98,7 @@ class Box {
     }) // , { cache })
     globalOrbitDB = this._orbitdb
 
-    const key = this._3id.getKeyringBySpaceName(rootStoreName).getPublicKeys(true).signingKey
+    const key = (await this._3id.getPublicKeys(null, true)).signingKey
     this._rootStore = await this._orbitdb.feed(rootStoreName, {
       format: 'dag-pb',
       accessController: {
@@ -184,6 +184,7 @@ class Box {
         .filter(entry => entry.payload.value.type === 'address-link')
         .map(entry => {
           this._ipfs.dag.get(entry.payload.value.data)
+          // TODO - actually pin entires
         })
     }
     pinAddressLinks()
