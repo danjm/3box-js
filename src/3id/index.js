@@ -1,7 +1,7 @@
 const { HDNode } = require('ethers').utils
 const didJWT = require('did-jwt')
 const IpfsMini = require('ipfs-mini')
-const localstorage = require('store')
+const localstorage = require('store/dist/store.modern')
 const utils = require('../utils/index')
 const Keyring = require('./keyring')
 const config = require('../config.js')
@@ -105,7 +105,10 @@ class ThreeId {
     if (serialized3id) {
       if (opts.consentCallback) opts.consentCallback(false)
     } else {
-      const sig = await utils.openBoxConsent(normalizedAddress, ethereum)
+      console.log('opts.walletProvidedSignature', opts.walletProvidedSignature)
+      const sig = opts.walletProvidedSignature
+        ? opts.walletProvidedSignature
+        : await utils.openBoxConsent(normalizedAddress, ethereum)
       if (opts.consentCallback) opts.consentCallback(true)
       const entropy = '0x' + utils.sha256(sig.slice(2))
       const mnemonic = HDNode.entropyToMnemonic(entropy)

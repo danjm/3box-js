@@ -1,5 +1,5 @@
 const ThreeId = require('../index')
-const localstorage = require('store')
+const localstorage = require('store/dist/store.modern')
 
 jest.mock('../../utils/index', () => {
   const sha256 = require('js-sha256').sha256

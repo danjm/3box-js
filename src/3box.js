@@ -1,4 +1,4 @@
-const localstorage = require('store')
+const localstorage = require('store/dist/store.modern')
 const IPFS = require('ipfs')
 const OrbitDB = require('orbit-db')
 const Pubsub = require('orbit-db-pubsub')
